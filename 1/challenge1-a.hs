@@ -16,7 +16,7 @@ move West  x (a, b) = (a-x, b)
 
 finalLocation :: [String] -> (Int, Int) -> FacingDirection -> (Int, Int)
 finalLocation [] location _ = location
-finalLocation (x:xs) location facing = finalLocation xs (move nextFacing (read $ tail x) location) nextFacing where nextFacing = (turn (read $ [head x]) facing)
+finalLocation ((x:ys):zs) location facing = finalLocation zs (move nextFacing (read $ ys) location) nextFacing where nextFacing = (turn (read $ [x]) facing)
 
 removeComma s = if last s == ',' then init s else s
 
