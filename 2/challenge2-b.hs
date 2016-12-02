@@ -5,10 +5,10 @@ keypad1 = [ [Just '1', Just '2', Just '3'],
             [Just '7', Just '8', Just '9'] ]
 
 keypad2 = [ [Nothing,  Nothing,  Just '1', Nothing,  Nothing ],
-           [Nothing,  Just '2', Just '3', Just '4', Nothing ],
-           [Just '5', Just '6', Just '7', Just '8', Just '9'],
-           [Nothing,  Just 'A', Just 'B', Just 'C', Nothing ],
-           [Nothing,  Nothing,  Just 'D', Nothing,  Nothing ] ]
+            [Nothing,  Just '2', Just '3', Just '4', Nothing ],
+            [Just '5', Just '6', Just '7', Just '8', Just '9'],
+            [Nothing,  Just 'A', Just 'B', Just 'C', Nothing ],
+            [Nothing,  Nothing,  Just 'D', Nothing,  Nothing ] ]
 
 rowMap [] _ _ y = y
 rowMap (x:xs) row column y = rowMap xs row (column+1) $ Map.insert (column, row) x y
