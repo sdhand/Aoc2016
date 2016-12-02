@@ -17,7 +17,7 @@ move West  x (a, b) = map (\t -> (t, b)) [a-x..a-1]
 
 repeatedLocation :: [String] -> [(Int, Int)] -> FacingDirection -> (Int, Int)
 repeatedLocation ((x:ys):zs) previousLocations facing = case intersect nextLocations previousLocations of
-    [a] -> a
+    a:as -> a
     [] ->  repeatedLocation zs (nextLocations++previousLocations) nextFacing
     where nextFacing = (turn (read $ [x]) facing)
           nextLocations = (move nextFacing (read ys) $ head previousLocations)
