@@ -1,0 +1,39 @@
+import qualified Data.Map as M
+import Data.List
+
+data Output = Bot Int | Tray Int
+data Bot = B [Int] (Output, Output)
+
+full (B x _) = length x == 2
+
+give bot n bots = M.insert bot (B (n:x) y) bots
+    where (B x y) = bots M.! bot
+
+update bots x min max low high = case low of
+    Bot z -> give z min highbot
+    Tray z -> highbot
+    where clearbot = M.insert x (B [] (low, high)) bots
+          highbot = case high of
+            Bot y -> give y max clearbot
+            Tray y -> clearbot
+
+runBots bots = if (min == 17) && (max == 61) then bot else runBots $ update bots bot min max low high
+    where (bot, B x (low, high)) = head $ M.toList $ M.filter full bots
+          min = minimum x
+          max = maximum x
+
+buildBot :: [String] -> M.Map Int Bot -> [String] -> M.Map Int Bot
+buildBot b bots command = M.insert (read $ command !! 1) (B (values $ read $ command !! 1) (output (command !! 5) (read $ command !! 6), output (command !! 10) (read $ command !! 11))) bots
+    where output :: String -> Int -> Output
+          output place n = if place == "bot" then Bot n else Tray n
+          values :: Int -> [Int]
+          values n =  map (read.(!! 1)) $ filter ((==(show n)).(!! 5)) $ map words b
+
+findBot :: String -> Int
+findBot input = runBots $ foldl (buildBot b) M.empty $ map words a
+    where (a, b) = span (isPrefixOf "bot") $ sort $ lines input
+
+main :: IO ()
+main = do
+    input <- readFile "input.txt"
+    print $ findBot input
