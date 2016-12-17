@@ -22,10 +22,10 @@ moves (State (x, y) route) =
             valid (x', y') = x' >= 0 && y' >= 0
             (vu:vd:vl:vr:[]) = zipWith (&&) (map open $ take 4 $ hash route) (map valid [up,down,left,right])
 
-shortest :: [State] -> [State] -> State
-shortest (x:xs) visited = if (length ends) > 0 then head ends else shortest (xs++next) (visited++next)
-    where next = filter (not.(`elem` visited)) $ moves x
+shortest :: [State] -> State
+shortest (x:xs) = if (length ends) > 0 then head ends else shortest (xs++next)
+    where next = moves x
           ends = filter (\(State y _) -> y == (3, 3)) next
 
 main = do
-    print $ shortest [State (0,0) ""] []
+    print $ shortest [State (0,0) ""]
