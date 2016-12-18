@@ -9,8 +9,8 @@ valid (State items _) = and $ map validFloor [Floor1, Floor2, Floor3, Floor4]
     where filterFloor floor func = filter (\x -> (func x)==floor) items
           validFloor floor = (all (\(x, y) -> x==y) $ filterFloor floor snd) || ((length $ filterFloor floor fst) == 0)
 
-startState = State (sort  [(Floor1, Floor1), (Floor1, Floor1), (Floor1, Floor1), (Floor1, Floor2), (Floor1, Floor2)]) Floor1
-endState =   State (sort [(Floor4, Floor4), (Floor4, Floor4), (Floor4, Floor4), (Floor4, Floor4), (Floor4, Floor4)]) Floor4
+startState = State (sort  [(Floor1, Floor1), (Floor1, Floor1), (Floor1, Floor1), (Floor1, Floor1), (Floor1, Floor1), (Floor1, Floor2), (Floor1, Floor2)]) Floor1
+endState =   State (sort [(Floor4, Floor4), (Floor4, Floor4), (Floor4, Floor4), (Floor4, Floor4), (Floor4, Floor4), (Floor4, Floor4), (Floor4, Floor4)]) Floor4
 
 move1 :: State -> Floor -> [State]
 move1 (State items current) next = nub $
